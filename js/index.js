@@ -50,6 +50,8 @@ const displaySearchResult = books => {
         })
     }
 }
+
+// Display Total Result 
 const displayTotalResult = totalResult => {
     if(totalResult.numFound === 0){
         resultCounter.innerText = 'No result Found';
