@@ -9,7 +9,7 @@ const loadBook = () => {
         resultCounter.innerText = 'input field does not empty!';
     }
     else{
-        const url = `http://openlibrary.org/search.json?q=${inputField.value}`;
+        const url = `https://openlibrary.org/search.json?q=${inputField.value}`;
         inputField.value = '';
         fetch(url)
             .then(res => res.json())
