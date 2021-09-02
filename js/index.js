@@ -4,17 +4,24 @@ const resultCounter = document.getElementById('total-result');
 const resultField = document.getElementById('result-field');    
 
 const loadBook = () => {
-    const url = `http://openlibrary.org/search.json?q=${inputField.value}`;
-    inputField.value = '';
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displaySearchResult(data.docs));
+    if(inputField.value === ''){
+        resultCounter.textContent = '';
+        resultCounter.innerText = 'input field does not empty!';
+    }
+    else{
+        const url = `http://openlibrary.org/search.json?q=${inputField.value}`;
+        inputField.value = '';
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displaySearchResult(data.docs));
+    }
 }
 
 const displaySearchResult = books => {
     resultField.textContent = '';
     let count = 0;
     if(books.length === 0){
+        resultCounter.textContent = '';
         resultCounter.innerText = 'No result Found';
     }
     else{
