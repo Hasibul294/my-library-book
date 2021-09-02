@@ -3,6 +3,7 @@ const searchButton = document.getElementById('search-button');
 const resultCounter = document.getElementById('total-result');
 const resultField = document.getElementById('result-field');    
 
+// Loading Books data 
 const loadBook = () => {
     if(inputField.value === ''){
         resultCounter.textContent = '';
@@ -13,16 +14,20 @@ const loadBook = () => {
         inputField.value = '';
         fetch(url)
             .then(res => res.json())
-            .then(data => displaySearchResult(data.docs));
+            .then(data => {
+                displaySearchResult(data.docs);
+                displayTotalResult(data);
+            });
     }
 }
 
+// Display Books Result 
 const displaySearchResult = books => {
     resultField.textContent = '';
     let count = 0;
     if(books.length === 0){
         resultCounter.textContent = '';
-        resultCounter.innerText = 'No result Found';
+        return;
     }
     else{
         books.forEach(book => {
@@ -43,7 +48,13 @@ const displaySearchResult = books => {
             resultField.appendChild(div);
             count++;
         })
-        resultCounter.innerText = `Total Result: ${count}`;
     }
-    
+}
+const displayTotalResult = totalResult => {
+    if(totalResult.numFound === 0){
+        resultCounter.innerText = 'No result Found';
+    }
+    else{
+        resultCounter.innerText = `Total Result: ${totalResult.numFound}`;
+    }
 }
